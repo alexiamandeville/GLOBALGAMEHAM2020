@@ -50,10 +50,10 @@ public class InteractionChecker : MonoBehaviour
         if (targetInteractable != previousInteractable)
         {
             if (previousInteractable)
-                previousInteractable.LookAway();
+                previousInteractable.LookAway(playerController);
 
             if (targetInteractable)
-                targetInteractable.LookAt();
+                targetInteractable.LookAt(playerController);
         }
     }
 
@@ -64,10 +64,10 @@ public class InteractionChecker : MonoBehaviour
             if (playerInput.currentGamepad.buttonSouth.wasPressedThisFrame)
             {
                 if(playerController.playerType == PlayerType.FLIPPER)
-                    targetInteractable.Fix();
+                    targetInteractable.Fix(playerController);
 
                 if (playerController.playerType == PlayerType.GHOST)
-                    targetInteractable.Break();
+                    targetInteractable.Break(playerController);
             }
         }
     }
