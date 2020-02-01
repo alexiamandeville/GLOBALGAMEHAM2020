@@ -9,17 +9,27 @@ namespace DefaultNamespace
     [SerializeField] protected Rigidbody rb;
     [SerializeField] protected int controllerNumber = 0;
     [SerializeField] protected float moveSpeedMulti;
-    [SerializeField] protected BoxCollider playerGroundCollider;
+    [SerializeField] protected SphereCollider collider;
 
     protected Gamepad currentGamepad;
 
+    protected bool IsCurrentlyOnGround;
+
     public virtual void Awake()
     {
+      if (Gamepad.all.Count == 0)
+      {
+        // TODO do something useful here
+        Debug.LogWarning("NO CONTROLLERS CONNECTED");
+        return;
+      }
+
       currentGamepad = Gamepad.all[controllerNumber];
     }
     
     public virtual void FixedUpdate()
     {
+      UpdateIsOnGround();
       UpdateCharacterPosition();
     }
 
@@ -38,6 +48,18 @@ namespace DefaultNamespace
       return true;
     }
 
+    protected void UpdateIsOnGround()
+    {
+      // make sure we're properly grounded
+      IsCurrentlyOnGround = Physics.CheckSphere(
+        // ffs the position is in WORLD SPACE
+        collider.transform.InverseTransformVector(collider.transform.position),
+        collider.radius,
+        layerMask: Layers.EnvironmentCollidersMask);
+      
+      // Debug.Log($"Is On Ground: {IsCurrentlyOnGround}");
+    }
+
     protected void UpdateCharacterPosition()
     {
       if (!IsMovementEnabled())
@@ -46,7 +68,7 @@ namespace DefaultNamespace
       }
       
       // initial pos
-      var curP = rb.transform.position;
+      var curP = rb.velocity;
       var newX = curP.x;
       var newY = curP.y;
       var newZ = curP.z;
@@ -55,28 +77,24 @@ namespace DefaultNamespace
       var moveAxis = currentGamepad.leftStick.ReadValue();
       if (moveAxis.magnitude > 0)
       {
-        var multi = Time.fixedDeltaTime * moveSpeedMulti;
+        var multi = /*Time.fixedDeltaTime **/ moveSpeedMulti;
 
         newX -= (moveAxis.x * multi);
         newZ -= (moveAxis.y * multi);
+        
+        // Debug.Log($"Player {controllerNumber}, Move{{ x:{newX:N3}, y:{newY:N3}, z:{newZ:N3} }}");
       }
 
-      // make sure we're properly grounded
-      var didHit = Physics.CheckSphere(
-        playerGroundCollider.center,
-        -.5f, layerMask: Layers.GroundMask, QueryTriggerInteraction.Collide);
-      if (!didHit)
+      // apply final velocity
+      rb.velocity = new Vector3(newX, newY, newZ);
+
+      // rotate towards movement
+      var v = rb.velocity;
+      if (Mathf.Abs(v.x) > 0.01f || Mathf.Abs(v.z) > 0.01f)
       {
-        // add ze gravitas
-        newY -= (0.1f);
+        var rot = Quaternion.LookRotation(rb.velocity).eulerAngles;
+        rb.transform.eulerAngles = new Vector3(0f, rot.y, 0f);
       }
-      else
-      {
-        Debug.Log("ON GROUND");
-      }
-      
-      // apply final movement
-      rb.MovePosition(new Vector3(newX, newY, newZ));
     }
   }
 }
