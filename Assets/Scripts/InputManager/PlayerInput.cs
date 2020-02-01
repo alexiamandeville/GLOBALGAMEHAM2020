@@ -1,21 +1,29 @@
+
+using System;
+using Doors;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace DefaultNamespace
 {
-  public abstract class BasicPlayerInput : MonoBehaviour
+  public class PlayerInput : MonoBehaviour
   {
     [SerializeField] protected Transform playerRootTransform;
     [SerializeField] protected Rigidbody rb;
-    [SerializeField] protected int controllerNumber = 0;
+    [SerializeField] protected int playerNumber = 0;
     [SerializeField] protected float moveSpeedMulti;
-    [SerializeField] protected SphereCollider collider;
+    [SerializeField] protected SphereCollider groundCollider;
+    [SerializeField] protected CapsuleCollider playerCollider;
 
-    protected Gamepad currentGamepad;
-
+    public Gamepad currentGamepad;
     protected bool IsCurrentlyOnGround;
 
-    public virtual void Awake()
+    public void SetPlayerNumber(int num)
+    {
+      playerNumber = num;
+    }
+
+    public virtual void Start()
     {
       if (Gamepad.all.Count == 0)
       {
@@ -24,7 +32,7 @@ namespace DefaultNamespace
         return;
       }
 
-      currentGamepad = Gamepad.all[controllerNumber];
+      currentGamepad = Gamepad.all[playerNumber];
     }
     
     public virtual void FixedUpdate()
@@ -53,8 +61,8 @@ namespace DefaultNamespace
       // make sure we're properly grounded
       IsCurrentlyOnGround = Physics.CheckSphere(
         // ffs the position is in WORLD SPACE
-        collider.transform.InverseTransformVector(collider.transform.position),
-        collider.radius,
+        groundCollider.transform.InverseTransformVector(groundCollider.transform.position),
+        groundCollider.radius,
         layerMask: Layers.EnvironmentCollidersMask);
       
       // Debug.Log($"Is On Ground: {IsCurrentlyOnGround}");
@@ -96,5 +104,22 @@ namespace DefaultNamespace
         rb.transform.eulerAngles = new Vector3(0f, rot.y, 0f);
       }
     }
+    
+    #region Collisions
+
+    private void OnTriggerEnter(Collider other)
+    {
+      Debug.Log($"OnTriggerEnter with: {other.gameObject.name}");
+      
+      var door = other.gameObject.GetComponentInParent<Door>();
+      if (door != null)
+      {
+        var newPoint = door.otherDoor.mySpawnPoint;
+        playerRootTransform.position = newPoint.position;
+        Debug.Log($"Teleport via door {other.gameObject.name}");
+      }
+    }
+
+    #endregion
   }
 }
