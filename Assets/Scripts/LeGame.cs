@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Facebook.SocialVR.Worlds.Shapeworld.Scripts.Utils.FSM;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR.Haptics;
-using UnityScript.Macros;
 
 namespace DefaultNamespace
 {
@@ -19,7 +17,7 @@ namespace DefaultNamespace
     [SerializeField] protected GameObject PlayerPrefabRef;
 
     [Header("Where to spawn all players")]
-    [SerializeField] protected Transform PlayerRoot;
+    [SerializeField] protected Transform[] PlayerSpawnRoot;
     
     public enum GameState
     {
@@ -57,7 +55,9 @@ namespace DefaultNamespace
     // -----------------------------------------------------------------------------------------------------------------
     void SpawnPlayer(int gamepadId, int playerId)
     {
-      var inst = Instantiate(PlayerPrefabRef, PlayerRoot, false);
+      var root = PlayerSpawnRoot[Random.Range(0, PlayerSpawnRoot.Length)];
+      
+      var inst = Instantiate(PlayerPrefabRef, root, false);
       inst.transform.localPosition = Vector3.zero;
       inst.transform.localRotation = Quaternion.identity;
 

@@ -7,7 +7,7 @@ namespace DefaultNamespace
 {
   public class PlayerController : MonoBehaviour
   {
-    protected PlayerType playerType = PlayerType.INVALID;
+    public PlayerType playerType { get; protected set; } = PlayerType.INVALID;
     protected int playerNumber = 0;
     protected int controllerId = 0;
     

@@ -15,9 +15,10 @@
         <e p="Scripts" t="Include">
           <e p="Andrew" t="Include">
             <e p="CameraActivator.cs" t="Include" />
-            <e p="Interactable.cs" t="Include" />
+            <e p="Interactable" t="Include">
+              <e p="Interactable.cs" t="Include" />
+            </e>
             <e p="InteractionChecker.cs" t="Include" />
-            <e p="TestInteractable.cs" t="Include" />
           </e>
           <e p="Doors" t="Include">
             <e p="Door.cs" t="Include" />
