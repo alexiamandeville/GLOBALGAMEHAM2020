@@ -11,12 +11,14 @@ namespace DefaultNamespace
     [SerializeField] protected float moveSpeedMulti;
     [SerializeField] protected SphereCollider collider;
 
+    protected InteractionChecker interactionChecker;
     protected Gamepad currentGamepad;
-
     protected bool IsCurrentlyOnGround;
 
     public virtual void Awake()
     {
+      interactionChecker = GetComponent<InteractionChecker>();
+
       if (Gamepad.all.Count == 0)
       {
         // TODO do something useful here

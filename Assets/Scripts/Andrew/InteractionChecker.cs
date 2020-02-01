@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InteractionChecker : MonoBehaviour
 {
@@ -14,8 +12,6 @@ public class InteractionChecker : MonoBehaviour
     {
         targetInteractable = CheckForInteractable();
         LookAtTarget();
-
-        InteractWithTarget();
         previousInteractable = targetInteractable;
     }
 
@@ -47,20 +43,16 @@ public class InteractionChecker : MonoBehaviour
         }
     }
 
-    private void InteractWithTarget()
+    public void TryToFix()
     {
-        if(targetInteractable)
-        {
-            if(Input.GetKeyDown(KeyCode.A))
-            {
-                targetInteractable.Fix();
-            }
+        if (targetInteractable)
+            targetInteractable.Fix();
+    }
 
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                targetInteractable.Break();
-            }
-        }
+    public void TryToBreak()
+    {
+        if (targetInteractable)
+            targetInteractable.Break();
     }
 
     private void OnDrawGizmos()
