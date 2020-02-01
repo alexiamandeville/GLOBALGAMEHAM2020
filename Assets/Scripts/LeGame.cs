@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace.RoundStartTimer;
+using DefaultNamespace.RoundTimer;
 using Facebook.SocialVR.Worlds.Shapeworld.Scripts.Utils.FSM;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,12 +10,13 @@ namespace DefaultNamespace
 {
   public partial class LeGame : MonoBehaviour
   {
-    public const int MAX_PLAYERS = 4;
+    public const int MAX_PLAYERS = 1; //4;
     
     public Dictionary<int, int> ControllerToPlayerMap = new Dictionary<int, int>();
     public Dictionary<int, GameObject> PlayerIdToSpawnedEntMap = new Dictionary<int, GameObject>();
 
-    public RoundStartTimerController roundTimerController;
+    public RoundStartTimerController roundStartTimerController;
+    public RoundTimerController roundTimerController;
 
     [Header("Reference to the prefab for a player to spawn")]
     [SerializeField] protected GameObject PlayerPrefabRef;
@@ -49,7 +51,9 @@ namespace DefaultNamespace
     // -----------------------------------------------------------------------------------------------------------------
     void HardReset()
     {
+      roundStartTimerController.gameObject.SetActive(false);
       roundTimerController.gameObject.SetActive(false);
+      roundTimerController.Reset();
     }
     
     void on__GameState__START__WILL_ENTER(GameState prevState)
@@ -146,21 +150,21 @@ namespace DefaultNamespace
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    const float TIMER_MAX = 10f;
+    const float ROUND_START_TIMER_MAX = 3f;
     void on__GameState__ROUND_START_COUNTDOWN__WILL_ENTER(GameState prevState)
     {
-      roundTimerController.SetTimeLeft(TIMER_MAX);
-      roundTimerController.gameObject.SetActive(true);
+      roundStartTimerController.SetTimeLeft(ROUND_START_TIMER_MAX);
+      roundStartTimerController.gameObject.SetActive(true);
     }
     
     IEnumerator on__GameState__ROUND_START_COUNTDOWN__ENTERING(GameState prevState)
     {
-      float timeLeft = TIMER_MAX;
+      float timeLeft = ROUND_START_TIMER_MAX;
       while (timeLeft >= 0)
       {
         timeLeft -= Time.deltaTime;
 
-        roundTimerController.SetTimeLeft(timeLeft);
+        roundStartTimerController.SetTimeLeft(timeLeft);
         
         yield return null;
       }
@@ -168,8 +172,8 @@ namespace DefaultNamespace
     
     void on__GameState__ROUND_START_COUNTDOWN__DID_ENTER(GameState prevState)
     {
-      roundTimerController.gameObject.SetActive(false);
-      roundTimerController.SetTimeLeft(TIMER_MAX);
+      roundStartTimerController.gameObject.SetActive(false);
+      roundStartTimerController.SetTimeLeft(ROUND_START_TIMER_MAX);
 
       fsm.requestStateTransitionTo(GameState.ROUND);
     }
@@ -177,5 +181,33 @@ namespace DefaultNamespace
     // ROUND
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
+    private const float ROUND_TIMER_MAX = 20f;
+    
+    void on__GameState__ROUND__WILL_ENTER(GameState prevState)
+    {
+      roundTimerController.gameObject.SetActive(true);
+      roundTimerController.Reset();
+    }
+    
+    IEnumerator on__GameState__ROUND__ENTERING(GameState prevState)
+    {
+      float timeLeft = ROUND_TIMER_MAX;
+      while (timeLeft >= 0)
+      {
+        timeLeft -= Time.deltaTime;
+
+        roundTimerController.SetTimeLeft(timeLeft, ROUND_TIMER_MAX);
+        
+        yield return null;
+      }
+    }
+    
+    void on__GameState__ROUND__DID_ENTER(GameState prevState)
+    {
+      // roundStartTimerController.gameObject.SetActive(false);
+      // roundStartTimerController.SetTimeLeft(ROUND_START_TIMER_MAX);
+      //
+      // fsm.requestStateTransitionTo(GameState.ROUND);
+    }
   }
 }
