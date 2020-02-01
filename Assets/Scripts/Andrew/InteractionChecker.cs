@@ -9,12 +9,15 @@ public class InteractionChecker : MonoBehaviour
     [SerializeField] private float distance = 3.0f;
 
     private PlayerInput playerInput = null;
+    private PlayerController playerController = null;
+
     private Interactable previousInteractable = null;
     private Interactable targetInteractable = null;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -60,12 +63,11 @@ public class InteractionChecker : MonoBehaviour
         {
             if (playerInput.currentGamepad.buttonSouth.wasPressedThisFrame)
             {
-                targetInteractable.Fix();
-            }
+                if(playerController.playerType == PlayerType.FLIPPER)
+                    targetInteractable.Fix();
 
-            if (playerInput.currentGamepad.buttonNorth.wasPressedThisFrame)
-            {
-                targetInteractable.Break();
+                if (playerController.playerType == PlayerType.GHOST)
+                    targetInteractable.Break();
             }
         }
     }
