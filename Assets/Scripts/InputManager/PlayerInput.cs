@@ -11,8 +11,7 @@ namespace DefaultNamespace
     [SerializeField] protected float moveSpeedMulti;
     [SerializeField] protected SphereCollider groundCollider;
 
-    protected Gamepad currentGamepad;
-
+    public Gamepad currentGamepad;
     protected bool IsCurrentlyOnGround;
 
     public void SetPlayerNumber(int num)
