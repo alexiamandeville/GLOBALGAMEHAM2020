@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace.RoundStartTimer;
 using Facebook.SocialVR.Worlds.Shapeworld.Scripts.Utils.FSM;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,8 @@ namespace DefaultNamespace
     
     public Dictionary<int, int> ControllerToPlayerMap = new Dictionary<int, int>();
     public Dictionary<int, GameObject> PlayerIdToSpawnedEntMap = new Dictionary<int, GameObject>();
+
+    public RoundStartTimerController roundTimerController;
 
     [Header("Reference to the prefab for a player to spawn")]
     [SerializeField] protected GameObject PlayerPrefabRef;
@@ -26,8 +29,7 @@ namespace DefaultNamespace
       START,
       
       WAITING_FOR_PLAYERS,
-      HAVE_ALL_PLAYERS,
-      
+
       ROUND_START_COUNTDOWN,
       ROUND,
       ROUND_END,
@@ -45,6 +47,16 @@ namespace DefaultNamespace
     // START
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
+    void HardReset()
+    {
+      roundTimerController.gameObject.SetActive(false);
+    }
+    
+    void on__GameState__START__WILL_ENTER(GameState prevState)
+    {
+      HardReset();
+    }
+    
     void on__GameState__START__DID_ENTER(GameState prevState)
     {
       fsm.requestStateTransitionTo(GameState.WAITING_FOR_PLAYERS);
@@ -55,7 +67,7 @@ namespace DefaultNamespace
     // -----------------------------------------------------------------------------------------------------------------
     void SpawnPlayer(int gamepadId, int playerId)
     {
-      var root = PlayerSpawnRoot[Random.Range(0, PlayerSpawnRoot.Length)];
+      var root = PlayerSpawnRoot[playerId];
       
       var inst = Instantiate(PlayerPrefabRef, root, false);
       inst.transform.localPosition = Vector3.zero;
@@ -117,8 +129,51 @@ namespace DefaultNamespace
           }
         }
       }
+
+      if (ControllerToPlayerMap.Count == MAX_PLAYERS)
+      {
+        fsm.requestStateTransitionTo(GameState.ROUND_START_COUNTDOWN);
+
+        yield break;
+      }
       
-      yield break;
+      Debug.LogError("WUT");
     }
+    
+    // ROUND_START_COUNTDOWN
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
+    const float TIMER_MAX = 10f;
+    void on__GameState__ROUND_START_COUNTDOWN__WILL_ENTER(GameState prevState)
+    {
+      roundTimerController.SetTimeLeft(TIMER_MAX);
+      roundTimerController.gameObject.SetActive(true);
+    }
+    
+    IEnumerator on__GameState__ROUND_START_COUNTDOWN__ENTERING(GameState prevState)
+    {
+      float timeLeft = TIMER_MAX;
+      while (timeLeft >= 0)
+      {
+        timeLeft -= Time.deltaTime;
+
+        roundTimerController.SetTimeLeft(timeLeft);
+        
+        yield return null;
+      }
+    }
+    
+    void on__GameState__ROUND_START_COUNTDOWN__DID_ENTER(GameState prevState)
+    {
+      roundTimerController.gameObject.SetActive(false);
+      roundTimerController.SetTimeLeft(TIMER_MAX);
+
+      fsm.requestStateTransitionTo(GameState.ROUND);
+    }
+    
+    // ROUND
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
   }
 }
