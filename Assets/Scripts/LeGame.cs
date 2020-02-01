@@ -75,10 +75,12 @@ namespace DefaultNamespace
 
       var pc = inst.GetComponent<PlayerController>();
       PlayerType ptype = PlayerType.INVALID;
+      FlipperType ftype = FlipperType.INVALID;
       if (playerId == 0 || playerId == 1)
       {
         // flippers
         ptype = PlayerType.FLIPPER;
+        ftype = playerId == 0 ? FlipperType.FIXER : FlipperType.CLEANER;
       }
       else
       {
@@ -86,7 +88,7 @@ namespace DefaultNamespace
         ptype = PlayerType.GHOST;
       }
 
-      pc.InitPlayer(ptype, gamepadId, playerId);
+      pc.InitPlayer(ptype, ftype, gamepadId, playerId);
 
       pc.gameObject.name = $"{ptype} ctrl:{gamepadId} pid:{playerId}";
     }

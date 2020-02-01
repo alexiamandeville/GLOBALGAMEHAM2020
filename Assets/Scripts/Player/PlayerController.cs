@@ -7,7 +7,7 @@ namespace DefaultNamespace
 {
   public class PlayerController : MonoBehaviour
   {
-    public FlipperType flipperType = FlipperType.INVALID;
+    public FlipperType flipperType { get; protected set; } = FlipperType.INVALID;
     public PlayerType playerType { get; protected set; } = PlayerType.INVALID;
     protected int playerNumber = 0;
     protected int controllerId = 0;
@@ -19,14 +19,15 @@ namespace DefaultNamespace
     [SerializeField] protected GameObject flipperModel;
     [SerializeField] protected GameObject ghostModel;
 
-    public void InitPlayer(PlayerType type, int controllerId, int playerId)
+    public void InitPlayer(PlayerType type, FlipperType flipper, int controllerId, int playerId)
     {
+      flipperType = flipper;
       playerType = type;
       playerNumber = playerId;
       this.controllerId = controllerId;
 
       titleTextController.SetPlayerNumber(playerNumber);
-      titleTextController.SetPlayerType(playerType);
+      titleTextController.SetPlayerType(playerType, flipperType);
 
       inputController.SetPlayerNumber(this.controllerId);
 
