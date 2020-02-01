@@ -7,6 +7,7 @@ namespace DefaultNamespace
 {
   public class PlayerController : MonoBehaviour
   {
+    public FlipperType flipperType = FlipperType.INVALID;
     public PlayerType playerType = PlayerType.INVALID;
     public int playerNumber = 0;
     
