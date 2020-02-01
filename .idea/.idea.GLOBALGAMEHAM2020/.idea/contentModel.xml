@@ -17,6 +17,7 @@
             <e p="CameraActivator.cs" t="Include" />
             <e p="Interactable.cs" t="Include" />
             <e p="InteractionChecker.cs" t="Include" />
+            <e p="TestInteractable.cs" t="Include" />
           </e>
           <e p="Doors" t="Include">
             <e p="Door.cs" t="Include" />
@@ -29,6 +30,7 @@
           <e p="InputManager" t="Include">
             <e p="PlayerInput.cs" t="Include" />
           </e>
+          <e p="LeGame.cs" t="Include" />
           <e p="Models" t="Include">
             <e p="BaseModelController.cs" t="Include" />
           </e>
@@ -38,6 +40,21 @@
           </e>
           <e p="Title" t="Include">
             <e p="TitleTextController.cs" t="Include" />
+          </e>
+          <e p="Utils" t="Include">
+            <e p="FSM" t="Include">
+              <e p="FSMState.cs" t="Include" />
+              <e p="IMappedFSM.cs" t="Include" />
+              <e p="ISimpleFSM.cs" t="Include" />
+              <e p="MappedFSM.cs" t="Include" />
+              <e p="SafeCoroutine" t="Include">
+                <e p="SafeCoroutine.cs" t="Include" />
+                <e p="SafeCoroutineException.cs" t="Include" />
+                <e p="SafeCoroutineMonoBehaviourExtensions.cs" t="Include" />
+              </e>
+              <e p="SelfContainedFSM.cs" t="Include" />
+              <e p="SimpleFSM.cs" t="Include" />
+            </e>
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">
