@@ -127,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &737970604
 Transform:
   m_ObjectHideFlags: 0
@@ -834,7 +834,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3637901594776146389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.12, y: 2.97, z: -1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3637901595134133210}
@@ -853,7 +853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b867164a6b654327ac3873e447bdcdd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerType: 0
+  playerType: 1
   playerNumber: 0
   inputController: {fileID: 3348189634671325611}
   titleTextController: {fileID: 1882343994330678666}
@@ -916,7 +916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3637901595134133211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3616904035432393127}

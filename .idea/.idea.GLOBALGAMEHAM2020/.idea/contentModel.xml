@@ -13,6 +13,9 @@
         <e p="GameManager.cs" t="Include" />
         <e p="ScoreSystem.cs" t="Include" />
         <e p="Scripts" t="Include">
+          <e p="Doors" t="Include">
+            <e p="LinkedDoors.cs" t="Include" />
+          </e>
           <e p="Enums" t="Include">
             <e p="Layers.cs" t="Include" />
             <e p="Tags.cs" t="Include" />
