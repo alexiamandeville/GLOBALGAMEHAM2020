@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DefaultNamespace;
 
 public class Interactable : MonoBehaviour
 {
     public UnityEvent OnFixed = new UnityEvent();
     public UnityEvent OnBroken = new UnityEvent();
+    public FlipperType flipperRequired = FlipperType.INVALID;
 
     protected bool isBroken = false;
 
@@ -22,9 +24,9 @@ public class Interactable : MonoBehaviour
         spriteRenderer.enabled = false;
     }
 
-    public virtual void Fix()
+    public virtual void Fix(PlayerController player)
     {
-        if(isBroken)
+        if(isBroken && player.flipperType == flipperRequired)
         {
             isBroken = false;
             OnFixed.Invoke();
@@ -36,7 +38,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    public virtual void Break()
+    public virtual void Break(PlayerController player)
     {
         if(!isBroken)
         {
@@ -50,13 +52,13 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    public virtual void LookAt()
+    public virtual void LookAt(PlayerController player)
     {
         spriteRenderer.enabled = true;
         Debug.Log(gameObject.name + " - " + "Looked at.");
     }
 
-    public virtual void LookAway()
+    public virtual void LookAway(PlayerController player)
     {
         spriteRenderer.enabled = false;
         Debug.Log(gameObject.name + " - " + "Looked away.");
