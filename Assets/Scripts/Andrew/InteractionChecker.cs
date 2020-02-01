@@ -36,7 +36,7 @@ public class InteractionChecker : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward);
 
-        if (Physics.Raycast(ray, out hit, distance, interactionMask))
+        if(Physics.SphereCast(ray, 0.75f, out hit, distance, interactionMask))
         {
             GameObject hitObject = hit.collider.gameObject;
             interactable = hitObject.GetComponent<Interactable>();

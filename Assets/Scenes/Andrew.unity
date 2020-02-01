@@ -535,6 +535,11 @@ PrefabInstance:
       propertyPath: playerType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3637901594776146391, guid: 60f99224d9aba2248bef54e8285e265c,
+        type: 3}
+      propertyPath: flipperType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3637901595134133211, guid: 60f99224d9aba2248bef54e8285e265c,
         type: 3}
       propertyPath: m_Layer
@@ -941,7 +946,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &940110102495746628
+--- !u!1001 &702379877260194845
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1008,14 +1013,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 940110102551855349, guid: c89f36879965efa43866affacc4a45dc,
-        type: 3}
-      propertyPath: flipperRequired
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c89f36879965efa43866affacc4a45dc, type: 3}
---- !u!1001 &4836059811632420470
+--- !u!1001 &2064249218431778749
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1082,14 +1082,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1880560903066172896, guid: efe21cf12b0640c49bb510eff710bf52,
-        type: 3}
-      propertyPath: flipperRequired
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efe21cf12b0640c49bb510eff710bf52, type: 3}
---- !u!1001 &7937432862525265069
+--- !u!1001 &7485339201427551951
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1156,15 +1151,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1981790772696715820, guid: 808599691b1caf14b8dc290a826ab05b,
-        type: 3}
-      propertyPath: flipperRequired
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7937432861219734495, guid: 808599691b1caf14b8dc290a826ab05b,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 956c2e989abff5b4b895e119d4788f39, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 808599691b1caf14b8dc290a826ab05b, type: 3}
