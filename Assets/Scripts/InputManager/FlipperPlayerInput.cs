@@ -20,7 +20,13 @@ namespace DefaultNamespace
       // check for left thumbstick to move around with
       var moveAxis = currentGamepad.leftStick.ReadValue();
       
-      Debug.Log($"LEFT STICK {moveAxis.ToString("N5")}");
+      // move in direction of thumbstick
+      var curP = rb.transform.position;
+      rb.MovePosition(new Vector3(
+        curP.x - (moveAxis.x * moveSpeedMulti),
+        curP.y,
+        curP.z - (moveAxis.y * moveSpeedMulti)
+      ));
     }
   }
 }

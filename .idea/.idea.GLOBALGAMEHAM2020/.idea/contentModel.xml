@@ -6,6 +6,8 @@
     <e p="C:\Users\hacking\Documents\GameHam2020\GLOBALGAMEHAM2020" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="GameManager.cs" t="Include" />
+        <e p="ScoreSystem.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="hello.txt" t="Include" />
           <e p="InputManager" t="Include">
