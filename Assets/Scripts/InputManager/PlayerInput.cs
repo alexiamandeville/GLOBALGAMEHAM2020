@@ -15,8 +15,7 @@ namespace DefaultNamespace
     [SerializeField] protected SphereCollider groundCollider;
     [SerializeField] protected CapsuleCollider playerCollider;
 
-    protected Gamepad currentGamepad;
-
+    public Gamepad currentGamepad;
     protected bool IsCurrentlyOnGround;
 
     public void SetPlayerNumber(int num)

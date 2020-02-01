@@ -1,14 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DefaultNamespace;
 
 public class InteractionChecker : MonoBehaviour
 {
     [SerializeField] private LayerMask interactionMask = 0;
     [SerializeField] private float distance = 3.0f;
 
+    private PlayerInput playerInput = null;
     private Interactable previousInteractable = null;
     private Interactable targetInteractable = null;
+
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+    }
 
     private void Update()
     {
@@ -37,7 +44,7 @@ public class InteractionChecker : MonoBehaviour
 
     private void LookAtTarget()
     {
-        if(targetInteractable != previousInteractable)
+        if (targetInteractable != previousInteractable)
         {
             if (previousInteractable)
                 previousInteractable.LookAway();
@@ -49,14 +56,14 @@ public class InteractionChecker : MonoBehaviour
 
     private void InteractWithTarget()
     {
-        if(targetInteractable)
+        if (targetInteractable)
         {
-            if(Input.GetKeyDown(KeyCode.A))
+            if (playerInput.currentGamepad.buttonSouth.wasPressedThisFrame)
             {
                 targetInteractable.Fix();
             }
 
-            if (Input.GetKeyDown(KeyCode.S))
+            if (playerInput.currentGamepad.buttonNorth.wasPressedThisFrame)
             {
                 targetInteractable.Break();
             }
