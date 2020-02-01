@@ -876,6 +876,7 @@ MonoBehaviour:
   playerNumber: 0
   moveSpeedMulti: 20
   groundCollider: {fileID: 2056920955}
+  playerCollider: {fileID: 4737109791804497442}
 --- !u!54 &1536670771701951568
 Rigidbody:
   m_ObjectHideFlags: 0

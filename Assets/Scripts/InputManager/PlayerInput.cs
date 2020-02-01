@@ -1,3 +1,6 @@
+
+using System;
+using Doors;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +13,7 @@ namespace DefaultNamespace
     [SerializeField] protected int playerNumber = 0;
     [SerializeField] protected float moveSpeedMulti;
     [SerializeField] protected SphereCollider groundCollider;
+    [SerializeField] protected CapsuleCollider playerCollider;
 
     protected Gamepad currentGamepad;
 
@@ -101,5 +105,22 @@ namespace DefaultNamespace
         rb.transform.eulerAngles = new Vector3(0f, rot.y, 0f);
       }
     }
+    
+    #region Collisions
+
+    private void OnTriggerEnter(Collider other)
+    {
+      Debug.Log($"OnTriggerEnter with: {other.gameObject.name}");
+      
+      var door = other.gameObject.GetComponentInParent<Door>();
+      if (door != null)
+      {
+        var newPoint = door.otherDoor.mySpawnPoint;
+        playerRootTransform.position = newPoint.position;
+        Debug.Log($"Teleport via door {other.gameObject.name}");
+      }
+    }
+
+    #endregion
   }
 }
