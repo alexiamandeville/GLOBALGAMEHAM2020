@@ -8,16 +8,17 @@ public class Interactable : MonoBehaviour
 {
     public UnityEvent OnFixed = new UnityEvent();
     public UnityEvent OnBroken = new UnityEvent();
+
+    public bool startAsBroken = false;
     public FlipperType flipperRequired = FlipperType.INVALID;
 
-    protected bool isBroken = false;
-
+    private bool isBroken = false;
     private ScoreSystem scoreSystem = null;
 
     [SerializeField] private GameObject breakIndicator = null;
     [SerializeField] private GameObject fixIndicator = null;
 
-    protected virtual void Awake()
+    private void Awake()
     {
         scoreSystem = FindObjectOfType<ScoreSystem>();
         gameObject.layer = LayerMask.NameToLayer("Interaction");
@@ -26,7 +27,13 @@ public class Interactable : MonoBehaviour
         fixIndicator.SetActive(false);
     }
 
-    public virtual void Fix(PlayerController player)
+    private void Start()
+    {
+        if (startAsBroken)
+            Break(null);
+    }
+
+    public void Fix(PlayerController player)
     {
         if (CanBeFixed(player.flipperType))
         {
@@ -40,7 +47,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    public virtual void Break(PlayerController player)
+    public void Break(PlayerController player)
     {
         if (CanBeBroken())
         {
@@ -71,7 +78,7 @@ public class Interactable : MonoBehaviour
         Debug.Log(gameObject.name + " - " + "Looked at.");
     }
 
-    public virtual void LookAway(PlayerController player)
+    public void LookAway(PlayerController player)
     {
         if (player.playerType == PlayerType.FLIPPER)
             fixIndicator.SetActive(false);
