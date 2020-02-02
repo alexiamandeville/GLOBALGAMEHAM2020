@@ -12,6 +12,7 @@ namespace DefaultNamespace
         [SerializeField] protected Rigidbody rb;
         [SerializeField] protected int playerNumber = 0;
         [SerializeField] protected float moveSpeedMulti;
+        [SerializeField] protected float rotationSpeedMulti;
         [SerializeField] protected float scroungeMoveSpeedMulti;
         [SerializeField] protected float scroungeDistVibrateScaleDelta = 0.3f;
         [SerializeField] protected float scroungeDistVibrateSpeed = 0.5f;
@@ -129,7 +130,10 @@ namespace DefaultNamespace
             if (Mathf.Abs(v.x) > 0.01f || Mathf.Abs(v.z) > 0.01f)
             {
                 var rot = Quaternion.LookRotation(rb.velocity).eulerAngles;
-                rb.transform.eulerAngles = new Vector3(0f, rot.y, 0f);
+                rb.transform.rotation = Quaternion.Slerp(
+                    rb.transform.rotation, 
+                    Quaternion.Euler(new Vector3(0f, rot.y, 0f)),
+                    Time.fixedDeltaTime * rotationSpeedMulti);
             }
         }
 
