@@ -4,6 +4,7 @@ using DefaultNamespace.RoundStartTimer;
 using Facebook.SocialVR.Worlds.Shapeworld.Scripts.Utils.FSM;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace
 {
@@ -42,6 +43,9 @@ namespace DefaultNamespace
       fsm.onChanged += (prevState, currentState, stage) => {
         Debug.Log($"--GAME STATE-- {prevState} -> {currentState}:{stage}");
       };
+
+//      if(SceneManager.GetSceneByName("ScroungeLayer") == null)
+        SceneManager.LoadScene("ScroungeLayer", LoadSceneMode.Additive);
     }
     
     // START
