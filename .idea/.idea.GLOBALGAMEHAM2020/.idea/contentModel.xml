@@ -34,6 +34,7 @@
             <e p="PlayerInput.cs" t="Include" />
           </e>
           <e p="LeGame.cs" t="Include" />
+          <e p="LeMovement.cs" t="Include" />
           <e p="Models" t="Include">
             <e p="BaseModelController.cs" t="Include" />
           </e>
@@ -49,6 +50,7 @@
             <e p="RoundTimerController.cs" t="Include" />
           </e>
           <e p="Scoring" t="Include">
+            <e p="NarrationController.cs" t="Include" />
             <e p="PointsManager.cs" t="Include" />
             <e p="ScoreDisplayController.cs" t="Include" />
           </e>

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameStart : MonoBehaviour
 {
@@ -20,9 +21,13 @@ public class GameStart : MonoBehaviour
 
             myStartUI.SetActive(true);
 
-            if(Input.GetKeyDown("joystick button 0"))
-                SceneManager.LoadScene("main");
+            while (true)
+            {
+                if (Gamepad.current.buttonSouth.wasReleasedThisFrame)
+                    SceneManager.LoadScene("main");
 
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 }
