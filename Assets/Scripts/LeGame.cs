@@ -34,7 +34,7 @@ namespace DefaultNamespace
     [SerializeField] protected GameObject PressToJoinCanvas;
     
     const float ROUND_START_TIMER_MAX = 3f;
-    private const float ROUND_TIMER_MAX = 10f;
+    private const float ROUND_TIMER_MAX = 60f;
     private Interactable[] sceneInteractables;
     
     public enum GameState

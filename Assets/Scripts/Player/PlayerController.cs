@@ -18,6 +18,13 @@ namespace DefaultNamespace
 
     [SerializeField] protected GameObject flipperModel;
     [SerializeField] protected GameObject ghostModel;
+    
+    [SerializeField] protected GameObject headLamp;
+
+    void Start()
+    {
+      SetHeadlampActive(false);
+    }
 
     public void InitPlayer(PlayerType type, FlipperType flipper, int controllerId, int playerId)
     {
@@ -47,6 +54,11 @@ namespace DefaultNamespace
           Debug.LogError($"PLAYER TYPE NOT SET, #{playerNumber}");
           break;
       }
+    }
+
+    public void SetHeadlampActive(bool isActive)
+    {
+      headLamp.SetActive(isActive);
     }
   }
 }
