@@ -63,11 +63,24 @@ public class InteractionChecker : MonoBehaviour
         {
             if (playerInput.currentGamepad.buttonSouth.wasPressedThisFrame)
             {
-                if(playerController.playerType == PlayerType.FLIPPER)
-                    targetInteractable.Fix(playerController);
+                var istate = playerController.curInteractionState;
+                
+                if (playerController.playerType == PlayerType.FLIPPER)
+                {
+                    if (istate == LeGame.InteractionState.ALL_INTERACTIONS)
+                    {
+                        targetInteractable.Fix(playerController);
+                    }
+                }
 
                 if (playerController.playerType == PlayerType.GHOST)
-                    targetInteractable.Break(playerController);
+                {
+                    if (istate == LeGame.InteractionState.ALL_MOVE_ONLY_GHOSTS_INTERACT
+                        || istate == LeGame.InteractionState.ALL_INTERACTIONS)
+                    {
+                        targetInteractable.Break(playerController);
+                    }
+                }
             }
         }
     }
