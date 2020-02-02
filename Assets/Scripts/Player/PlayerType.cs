@@ -12,6 +12,7 @@ namespace DefaultNamespace
     {
         INVALID = 0,
 
+        BOTH,
         CLEANER,
         FIXER
     }
