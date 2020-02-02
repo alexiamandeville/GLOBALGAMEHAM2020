@@ -113,6 +113,7 @@ MonoBehaviour:
   - {fileID: 2596253507374391552}
   - {fileID: 3245126739440707245}
   - {fileID: 6342331038042579278}
+  EndGameCanvas: {fileID: 0}
 --- !u!1 &4535753497857732213
 GameObject:
   m_ObjectHideFlags: 0

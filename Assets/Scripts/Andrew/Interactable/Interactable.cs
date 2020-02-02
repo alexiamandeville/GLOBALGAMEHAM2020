@@ -43,7 +43,7 @@ public class Interactable : MonoBehaviour
             if (scoreSystem)
                 scoreSystem.playerScore += 1.0f;
 
-            Debug.Log(gameObject.name + " - " + "Fixed.");
+            // Debug.Log(gameObject.name + " - " + "Fixed.");
         }
     }
 
@@ -57,7 +57,7 @@ public class Interactable : MonoBehaviour
             if (scoreSystem)
                 scoreSystem.playerScore -= 1.0f;
 
-            Debug.Log(gameObject.name + " - " + "Broken.");
+            // Debug.Log(gameObject.name + " - " + "Broken.");
         }
     }
 
@@ -75,7 +75,7 @@ public class Interactable : MonoBehaviour
                 breakIndicator.SetActive(true);
         }
 
-        Debug.Log(gameObject.name + " - " + "Looked at.");
+        // Debug.Log(gameObject.name + " - " + "Looked at.");
     }
 
     public void LookAway(PlayerController player)
@@ -86,7 +86,7 @@ public class Interactable : MonoBehaviour
         if (player.playerType == PlayerType.GHOST)
             breakIndicator.SetActive(false);
 
-        Debug.Log(gameObject.name + " - " + "Looked away.");
+        // Debug.Log(gameObject.name + " - " + "Looked away.");
     }
 
     private bool CanBeFixed(FlipperType flipperType)
