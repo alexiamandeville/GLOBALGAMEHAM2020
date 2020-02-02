@@ -40,9 +40,6 @@ public class Interactable : MonoBehaviour
             isBroken = false;
             OnFixed.Invoke();
 
-            if (scoreSystem)
-                scoreSystem.playerScore += 1.0f;
-
             // Debug.Log(gameObject.name + " - " + "Fixed.");
         }
     }
@@ -53,9 +50,6 @@ public class Interactable : MonoBehaviour
         {
             isBroken = true;
             OnBroken.Invoke();
-
-            if (scoreSystem)
-                scoreSystem.playerScore -= 1.0f;
 
             // Debug.Log(gameObject.name + " - " + "Broken.");
         }

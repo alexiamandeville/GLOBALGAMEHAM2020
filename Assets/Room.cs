@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-
     public class Room : MonoBehaviour
     {
         ScroungeHotspot hotSpot;
