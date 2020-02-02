@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 8052094435896388626}
   - component: {fileID: 8052094435896388627}
   m_Layer: 10
-  m_Name: Dirt
+  m_Name: Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -484,8 +484,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8052094435896388624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.484, z: 0}
+  m_LocalScale: {x: 0.15518557, y: 0.15518557, z: 0.15518557}
   m_Children: []
   m_Father: {fileID: 1880560903066172897}
   m_RootOrder: 0
@@ -497,7 +497,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8052094435896388624}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &8052094435896388627
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -515,7 +515,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 956c2e989abff5b4b895e119d4788f39, type: 2}
+  - {fileID: 2100000, guid: 5220d0c10774fe6458b13b144ab151c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
