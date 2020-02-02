@@ -21,6 +21,7 @@ namespace DefaultNamespace
     public RoundTimerController roundTimerController;
     public GameObject roundCanvas;
     public ScoreDisplayController scoreDisplayController;
+    public NarrationController narrationController;
 
     protected PointsManager pointManager = new PointsManager();
 
@@ -237,14 +238,22 @@ namespace DefaultNamespace
       {
         i.OnBroken.AddListener(() =>
         {
-          Debug.Log($"Item broken: {i.gameObject.name}");
           pointManager.AddPoint(PlayerType.GHOST);
+
+          var pct = pointManager.GetScorePct(PlayerType.FLIPPER);
+          narrationController.SetScorePct(pct);
+          
+          Debug.Log($"Item broken: {i.gameObject.name}, new pct: {pct}");
         });
         
         i.OnFixed.AddListener(() =>
         {
-          Debug.Log($"Item fixed: {i.gameObject.name}");
           pointManager.AddPoint(PlayerType.FLIPPER);
+          
+          var pct = pointManager.GetScorePct(PlayerType.FLIPPER);
+          narrationController.SetScorePct(pct);
+          
+          Debug.Log($"Item fixed: {i.gameObject.name}, new pct: {pct}");
         });
       }
     }
