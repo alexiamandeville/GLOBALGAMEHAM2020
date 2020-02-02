@@ -204,8 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animRoot: {fileID: 4792080161968428289}
-  frequency: 5
-  amplitude: 1
+  frequency: 2
+  amplitude: 7
 --- !u!1001 &574867877996969499
 PrefabInstance:
   m_ObjectHideFlags: 0
