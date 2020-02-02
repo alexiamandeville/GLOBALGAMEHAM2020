@@ -21,6 +21,7 @@ namespace DefaultNamespace
     [SerializeField] protected Collider[] PlayerColliders;
 
     [SerializeField] protected GameObject flipperModel;
+    [SerializeField] protected GameObject constructModel;
     [SerializeField] protected GameObject ghostModel;
     
     [SerializeField] protected GameObject headLamp;
@@ -77,21 +78,28 @@ namespace DefaultNamespace
 
       inputController.SetPlayerNumber(this.controllerId);
 
+      constructModel.SetActive(false);
+      flipperModel.SetActive(false);
+      ghostModel.SetActive(false);
       switch (playerType)
       {
         case PlayerType.GHOST:
-          flipperModel.SetActive(false);
           ghostModel.SetActive(true);
-
           titleTextController.gameObject.layer = Layers.GhostNumber;
           
           SetColliderLayer(Layers.GhostNumber);
           break;
 
         case PlayerType.FLIPPER:
-          flipperModel.SetActive(true);
-          ghostModel.SetActive(false);
-          
+          if (flipperType == FlipperType.FIXER)
+          {
+            constructModel.SetActive(true);
+          }
+          else
+          {
+            flipperModel.SetActive(true);
+          }
+
           titleTextController.gameObject.layer = Layers.FlipperNumber;
           SetColliderLayer(Layers.FlipperNumber);
           break;
