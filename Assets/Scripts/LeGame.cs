@@ -227,10 +227,9 @@ namespace DefaultNamespace
     
     void on__GameState__ROUND__DID_ENTER(GameState prevState)
     {
-      // roundStartTimerController.gameObject.SetActive(false);
-      // roundStartTimerController.SetTimeLeft(ROUND_START_TIMER_MAX);
-      //
-      // fsm.requestStateTransitionTo(GameState.ROUND);
+      roundTimerController.gameObject.SetActive(false);
+      
+      fsm.requestStateTransitionTo(GameState.ROUND_END);
     }
   }
 }
