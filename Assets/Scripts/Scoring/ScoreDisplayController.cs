@@ -8,10 +8,10 @@ namespace DefaultNamespace.Scoring
     public TextMeshProUGUI flipperPctText;
     public TextMeshProUGUI ghostPctText;
 
-    public void SetScore(float flipperPct, float ghostPct)
+    public void SetScore(float flipperScore, float ghostScore)
     {
-      flipperPctText.text = $"{flipperPct:N0}%";
-      ghostPctText.text = $"{ghostPct:N0}%";
+      flipperPctText.text = $"{flipperScore:N0}";
+      ghostPctText.text = $"{ghostScore:N0}";
     }
   }
 }
