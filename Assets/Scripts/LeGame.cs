@@ -330,8 +330,8 @@ namespace DefaultNamespace
       
       EndGameCanvas.SetActive(true);
 
-      var flipScore = pointManager.GetScorePct(PlayerType.FLIPPER);
-      var ghostScore = pointManager.GetScorePct(PlayerType.GHOST);
+      var flipScore = pointManager.GetTotalScore(PlayerType.FLIPPER);
+      var ghostScore = pointManager.GetTotalScore(PlayerType.GHOST);
 
       if (flipScore > ghostScore)
       {
