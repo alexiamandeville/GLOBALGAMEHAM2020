@@ -20,6 +20,30 @@ namespace DefaultNamespace.Scoring
 
     public TextMeshProUGUI textThingy;
 
+    public string waitForGhostsText;
+
+    public string defaultText;
+
+    public void Reset()
+    {
+      if (textThingy == null)
+      {
+        return;
+      }
+
+      textThingy.text = defaultText;
+    }
+
+    public void ShowGhostText()
+    {
+      if (textThingy == null)
+      {
+        return;
+      }
+
+      textThingy.text = waitForGhostsText;
+    }
+
     public void SetScorePct(float pct)
     {
       if (textThingy == null)

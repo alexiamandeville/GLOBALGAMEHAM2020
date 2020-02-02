@@ -1,7 +1,8 @@
   using System;
 using Models;
 using Title;
-using UnityEngine;
+  using UnityEditor;
+  using UnityEngine;
 
 namespace DefaultNamespace
 {
@@ -9,6 +10,7 @@ namespace DefaultNamespace
   {
     public FlipperType flipperType { get; protected set; } = FlipperType.INVALID;
     public PlayerType playerType { get; protected set; } = PlayerType.INVALID;
+    public LeGame.InteractionState curInteractionState { get; protected set; } = LeGame.InteractionState.INVALID;
     protected int playerNumber = 0;
     protected int controllerId = 0;
 
@@ -26,6 +28,41 @@ namespace DefaultNamespace
     void Start()
     {
       SetHeadlampActive(false);
+    }
+
+    public void SetInteractionState(LeGame.InteractionState mode)
+    {
+      curInteractionState = mode;
+      
+      switch (mode)
+      {
+        case LeGame.InteractionState.NO_MOVEMENT:
+          inputController.gameObject.SetActive(false);
+          inputController.CanTeleport(false);
+          break;
+        
+        case LeGame.InteractionState.NO_TELEPORT:
+          inputController.gameObject.SetActive(true);
+          inputController.CanTeleport(false);
+          break;
+        
+        case LeGame.InteractionState.ALL_MOVE_ONLY_GHOSTS_INTERACT:
+          inputController.gameObject.SetActive(true);
+          if (playerType == PlayerType.GHOST)
+          {
+            inputController.CanTeleport(true);
+          }
+          else
+          {
+            inputController.CanTeleport(false);
+          }
+          break;
+        
+        case LeGame.InteractionState.ALL_INTERACTIONS:
+          inputController.gameObject.SetActive(true);
+          inputController.CanTeleport(true);
+          break;
+      }
     }
 
     public void InitPlayer(PlayerType type, FlipperType flipper, int controllerId, int playerId)

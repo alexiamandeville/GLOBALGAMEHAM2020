@@ -34,10 +34,10 @@ namespace DefaultNamespace
     [SerializeField] protected GameObject EndGameCanvas;
     [SerializeField] protected GameObject PressToJoinCanvas;
     
-    const float ROUND_START_TIMER_MAX = 3f;
-    private const float ROUND_TIMER_MAX = 60f;
+    const float ROUND_START_TIMER_MAX = 30f;
+    private const float ROUND_TIMER_MAX = 120f;
     private Interactable[] sceneInteractables;
-    
+
     public enum GameState
     {
       INVALID = 0,
@@ -55,14 +55,29 @@ namespace DefaultNamespace
     public void Awake()
     {
       fsm = new SimpleFSM<GameState>(GameState.START).StartOn(this, this);
-      fsm.onChanged += (prevState, currentState, stage) => {
-        Debug.Log($"--GAME STATE-- {prevState} -> {currentState}:{stage}");
+      fsm.onChanged += (prevState, currentState, stage) =>
+      {
+        Debug.Log($"#### GAME STATE #### {prevState} -> {currentState}:{stage}");
+      };
+
+      interactFsm = new SimpleFSM<InteractionState>(InteractionState.NO_MOVEMENT).StartOn(this, this);
+      interactFsm.onChanged += (prevState, currentState, stage) =>
+      {
+        Debug.Log($"-- INTERACTION STATE -- {prevState} -> {currentState}:{stage}");
+
+        if (stage == StateStage.DID_ENTER)
+        {
+          foreach (var kv in PlayerIdToSpawnedEntMap)
+          {
+            kv.Value.SetInteractionState(currentState);
+          }
+        }
       };
 
 //      if(SceneManager.GetSceneByName("ScroungeLayer") == null)
-        SceneManager.LoadScene("ScroungeLayer", LoadSceneMode.Additive);
+      SceneManager.LoadScene("ScroungeLayer", LoadSceneMode.Additive);
     }
-    
+
     // START
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -88,6 +103,9 @@ namespace DefaultNamespace
       EndGameCanvas.SetActive(false);
       roundCanvas.SetActive(false);
       PressToJoinCanvas.SetActive(false);
+      
+      interactFsm.requestStateTransitionTo(InteractionState.NO_MOVEMENT);
+      narrationController.Reset();
     }
     
     void on__GameState__START__WILL_ENTER(GameState prevState)
@@ -127,6 +145,7 @@ namespace DefaultNamespace
       }
 
       pc.InitPlayer(ptype, ftype, gamepadId, playerId);
+      pc.SetInteractionState(interactFsm.currentState);
 
       pc.gameObject.name = $"{ptype}{(ptype == PlayerType.FLIPPER ? $":{ftype}" : "")} ctrl:{gamepadId} pid:{playerId}";
 
@@ -136,6 +155,8 @@ namespace DefaultNamespace
     void on__GameState__WAITING_FOR_PLAYERS__WILL_ENTER(GameState prevState)
     {
       PressToJoinCanvas.SetActive(true);
+
+      interactFsm.requestStateTransitionTo(InteractionState.NO_TELEPORT);
     }
     
     IEnumerator on__GameState__WAITING_FOR_PLAYERS__ENTERING(GameState prevState)
@@ -198,8 +219,12 @@ namespace DefaultNamespace
     
     void on__GameState__ROUND_START_COUNTDOWN__WILL_ENTER(GameState prevState)
     {
+      interactFsm.requestStateTransitionTo(InteractionState.ALL_MOVE_ONLY_GHOSTS_INTERACT);
+      
       roundStartTimerController.SetTimeLeft(ROUND_START_TIMER_MAX);
       roundStartTimerController.gameObject.SetActive(true);
+      
+      narrationController.ShowGhostText();
     }
     
     IEnumerator on__GameState__ROUND_START_COUNTDOWN__ENTERING(GameState prevState)
@@ -229,6 +254,10 @@ namespace DefaultNamespace
 
     void on__GameState__ROUND__WILL_ENTER(GameState prevState)
     {
+      narrationController.Reset();
+      
+      interactFsm.requestStateTransitionTo(InteractionState.ALL_INTERACTIONS);
+      
       roundCanvas.SetActive(true);
       roundTimerController.gameObject.SetActive(true);
       roundTimerController.Reset();
@@ -285,6 +314,8 @@ namespace DefaultNamespace
 
     void on__GameState__ROUND_END__WILL_ENTER(GameState prevState)
     {
+      interactFsm.requestStateTransitionTo(InteractionState.NO_MOVEMENT);
+      
       EndGameCanvas.SetActive(true);
 
       var flipScore = pointManager.GetScorePct(PlayerType.FLIPPER);

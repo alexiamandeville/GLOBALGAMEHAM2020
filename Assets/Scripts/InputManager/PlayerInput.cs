@@ -23,9 +23,14 @@ namespace DefaultNamespace
         protected bool IsCurrentlyOnGround;
         protected bool IsScrounging;
         protected float scroungeAccum;
+        protected bool canTeleport;
 
         private ScroungeHotspot currScroungeSpot;
 
+        public void CanTeleport(bool canTeleport)
+        {
+            this.canTeleport = canTeleport;
+        }
 
         public void SetPlayerNumber(int num)
         {
@@ -141,7 +146,10 @@ namespace DefaultNamespace
 
         private void OnTriggerEnter(Collider other)
         {
-            // Debug.Log($"OnTriggerEnter with: {other.gameObject.name}");
+            if (!canTeleport)
+            {
+                return;
+            }
 
             var door = other.gameObject.GetComponentInParent<Door>();
             if (door != null)
