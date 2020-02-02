@@ -13,20 +13,22 @@ public class Interactable : MonoBehaviour
     protected bool isBroken = false;
 
     private ScoreSystem scoreSystem = null;
-    private SpriteRenderer spriteRenderer = null;
+
+    [SerializeField] private GameObject breakIndicator = null;
+    [SerializeField] private GameObject fixIndicator = null;
 
     protected virtual void Awake()
     {
         scoreSystem = FindObjectOfType<ScoreSystem>();
         gameObject.layer = LayerMask.NameToLayer("Interaction");
 
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.enabled = false;
+        breakIndicator.SetActive(false);
+        fixIndicator.SetActive(false);
     }
 
     public virtual void Fix(PlayerController player)
     {
-        if(isBroken && player.flipperType == flipperRequired)
+        if (CanBeFixed(player.flipperType))
         {
             isBroken = false;
             OnFixed.Invoke();
@@ -40,7 +42,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Break(PlayerController player)
     {
-        if(!isBroken)
+        if (CanBeBroken())
         {
             isBroken = true;
             OnBroken.Invoke();
@@ -54,13 +56,39 @@ public class Interactable : MonoBehaviour
 
     public virtual void LookAt(PlayerController player)
     {
-        spriteRenderer.enabled = true;
+        if (player.playerType == PlayerType.FLIPPER)
+        {
+            if (CanBeFixed(player.flipperType))
+                fixIndicator.SetActive(true);
+        }
+
+        if (player.playerType == PlayerType.GHOST)
+        {
+            if (CanBeBroken())
+                breakIndicator.SetActive(true);
+        }
+
         Debug.Log(gameObject.name + " - " + "Looked at.");
     }
 
     public virtual void LookAway(PlayerController player)
     {
-        spriteRenderer.enabled = false;
+        if (player.playerType == PlayerType.FLIPPER)
+            fixIndicator.SetActive(false);
+
+        if (player.playerType == PlayerType.GHOST)
+            breakIndicator.SetActive(false);
+
         Debug.Log(gameObject.name + " - " + "Looked away.");
+    }
+
+    private bool CanBeFixed(FlipperType flipperType)
+    {
+        return flipperType == flipperRequired && isBroken;
+    }
+
+    private bool CanBeBroken()
+    {
+        return !isBroken;
     }
 }
