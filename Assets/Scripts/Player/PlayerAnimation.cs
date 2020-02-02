@@ -23,6 +23,8 @@ public class PlayerAnimation : MonoBehaviour
     {
         Vector2 moveAxis = playerInput.currentGamepad.leftStick.ReadValue();
         bool isWalking = moveAxis == Vector2.zero ? false : true;
+
+        animator.speed = moveAxis.magnitude;
         animator.SetBool("Walk", isWalking);
     }
 }
