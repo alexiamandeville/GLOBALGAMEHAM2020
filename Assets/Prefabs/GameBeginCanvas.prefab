@@ -1350,6 +1350,51 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4050200606170897749, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.019
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050200606170897749, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.164
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050200606170897749, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.834
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050200606170897748, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 3.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050200606170897748, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_Range
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050200606170897748, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050200606170897748, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 4.5905e-41
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050200606170897748, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050200606170897748, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -0.000009258656
+      objectReference: {fileID: 0}
     - target: {fileID: 5722445011352524838, guid: 49a12e838b088704b9e37fe48f1b2f74,
         type: 3}
       propertyPath: amplitude
