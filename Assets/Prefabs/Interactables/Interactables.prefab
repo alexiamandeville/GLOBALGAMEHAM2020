@@ -1500,11 +1500,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3150878288573329618}
     m_Modifications:
-    - target: {fileID: 940110102551855336, guid: c89f36879965efa43866affacc4a45dc,
-        type: 3}
-      propertyPath: m_Name
-      value: Interactable_Leak
-      objectReference: {fileID: 0}
     - target: {fileID: 940110102551855348, guid: c89f36879965efa43866affacc4a45dc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1560,6 +1555,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 940110102551855336, guid: c89f36879965efa43866affacc4a45dc,
+        type: 3}
+      propertyPath: m_Name
+      value: Interactable_Leak
+      objectReference: {fileID: 0}
     - target: {fileID: 1287361133, guid: c89f36879965efa43866affacc4a45dc, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1600,11 +1600,42 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 940110102551855349, guid: c89f36879965efa43866affacc4a45dc,
+        type: 3}
+      propertyPath: OnFixed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2213467243265005092}
+    - target: {fileID: 940110102551855349, guid: c89f36879965efa43866affacc4a45dc,
+        type: 3}
+      propertyPath: OnBroken.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2213467243265005092}
+    - target: {fileID: 940110102551855349, guid: c89f36879965efa43866affacc4a45dc,
+        type: 3}
+      propertyPath: OnFixed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Stop
+      objectReference: {fileID: 0}
+    - target: {fileID: 940110102551855349, guid: c89f36879965efa43866affacc4a45dc,
+        type: 3}
+      propertyPath: OnBroken.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822988351242489569, guid: c89f36879965efa43866affacc4a45dc,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c89f36879965efa43866affacc4a45dc, type: 3}
 --- !u!4 &2788249562213111857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 940110102551855348, guid: c89f36879965efa43866affacc4a45dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3150878290513090757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2213467243265005092 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3822988351242489569, guid: c89f36879965efa43866affacc4a45dc,
     type: 3}
   m_PrefabInstance: {fileID: 3150878290513090757}
   m_PrefabAsset: {fileID: 0}
