@@ -12,7 +12,7 @@ namespace DefaultNamespace
 {
   public partial class LeGame : MonoBehaviour
   {
-    public const int MAX_PLAYERS = 4; //4;
+    public const int MAX_PLAYERS = 1; //4;
     
     public Dictionary<int, int> ControllerToPlayerMap = new Dictionary<int, int>();
     public Dictionary<int, PlayerController> PlayerIdToSpawnedEntMap = new Dictionary<int, PlayerController>();
@@ -34,8 +34,8 @@ namespace DefaultNamespace
     [SerializeField] protected GameObject EndGameCanvas;
     [SerializeField] protected GameObject PressToJoinCanvas;
     
-    const float ROUND_START_TIMER_MAX = 15f;
-    private const float ROUND_TIMER_MAX = 120f;
+    const float ROUND_START_TIMER_MAX = 3f;
+    private const float ROUND_TIMER_MAX = 240f;
     private Interactable[] sceneInteractables;
 
     public enum GameState
