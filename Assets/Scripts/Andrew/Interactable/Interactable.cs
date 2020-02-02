@@ -91,7 +91,8 @@ public class Interactable : MonoBehaviour
 
     private bool CanBeFixed(FlipperType flipperType)
     {
-        return flipperType == flipperRequired && isBroken;
+        bool flipper = flipperType == flipperRequired || flipperRequired == FlipperType.BOTH;
+        return flipper && isBroken;
     }
 
     private bool CanBeBroken()
