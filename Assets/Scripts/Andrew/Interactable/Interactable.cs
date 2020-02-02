@@ -33,6 +33,12 @@ public class Interactable : MonoBehaviour
             Break(null);
     }
 
+    public void Reset()
+    {
+        isBroken = false;
+        OnFixed.Invoke();
+    }
+
     public void Fix(PlayerController player)
     {
         if (CanBeFixed(player.flipperType))

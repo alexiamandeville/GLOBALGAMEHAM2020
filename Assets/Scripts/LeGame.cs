@@ -4,6 +4,7 @@ using DefaultNamespace.RoundStartTimer;
 using DefaultNamespace.RoundTimer;
 using DefaultNamespace.Scoring;
 using Facebook.SocialVR.Worlds.Shapeworld.Scripts.Utils.FSM;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -22,6 +23,7 @@ namespace DefaultNamespace
     public GameObject roundCanvas;
     public ScoreDisplayController scoreDisplayController;
     public NarrationController narrationController;
+    public TextMeshProUGUI winTextRef;
 
     protected PointsManager pointManager = new PointsManager();
 
@@ -37,6 +39,9 @@ namespace DefaultNamespace
     const float ROUND_START_TIMER_MAX = 20f;
     private const float ROUND_TIMER_MAX = 90f;
     private Interactable[] sceneInteractables;
+    
+    private string winText = "you sold the place!";
+    private string loseText = "you might be stuck with this place";
 
     public enum GameState
     {
@@ -106,6 +111,13 @@ namespace DefaultNamespace
       
       interactFsm.requestStateTransitionTo(InteractionState.NO_MOVEMENT);
       narrationController.Reset();
+
+      winTextRef.text = "";
+
+      foreach (var interactable in sceneInteractables)
+      {
+        interactable.Reset();
+      }
     }
     
     void on__GameState__START__WILL_ENTER(GameState prevState)
@@ -320,6 +332,15 @@ namespace DefaultNamespace
 
       var flipScore = pointManager.GetScorePct(PlayerType.FLIPPER);
       var ghostScore = pointManager.GetScorePct(PlayerType.GHOST);
+
+      if (flipScore > ghostScore)
+      {
+        winTextRef.text = winText;
+      }
+      else
+      {
+        winTextRef.text = loseText;
+      }
       
       scoreDisplayController.SetScore(flipScore, ghostScore);
     }
