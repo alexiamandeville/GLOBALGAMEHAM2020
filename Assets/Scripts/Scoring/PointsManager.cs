@@ -23,6 +23,11 @@ namespace DefaultNamespace.Scoring
       
       Debug.Log($"SCORE[{type}] => {PlayerTypeToPoints[type]}");
     }
+    
+    public float GetTotalScore(PlayerType type)
+    {
+      return PlayerTypeToPoints.ContainsKey(type) ? PlayerTypeToPoints[type] : 0;
+    }
 
     public float GetScorePct(PlayerType type)
     {
