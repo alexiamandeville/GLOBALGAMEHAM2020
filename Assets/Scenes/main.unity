@@ -752,22 +752,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1412064891, guid: 133aae891f811a3459d868b9c748c7c6, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1412064891, guid: 133aae891f811a3459d868b9c748c7c6, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1435542066, guid: 133aae891f811a3459d868b9c748c7c6, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1435542066, guid: 133aae891f811a3459d868b9c748c7c6, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 133aae891f811a3459d868b9c748c7c6, type: 3}
 --- !u!114 &1111190603 stripped
@@ -915,19 +899,9 @@ PrefabInstance:
       objectReference: {fileID: 340764130}
     - target: {fileID: 4535753497688469118, guid: a12f5e3a676b3df43abadec852540514,
         type: 3}
-      propertyPath: EndGameCanvas
-      value: 
-      objectReference: {fileID: 474558419}
-    - target: {fileID: 4535753497688469118, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
       propertyPath: roundCanvas
       value: 
       objectReference: {fileID: 1350440113}
-    - target: {fileID: 4535753497688469118, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: PressToJoinCanvas
-      value: 
-      objectReference: {fileID: 617141862}
     - target: {fileID: 4535753497688469118, guid: a12f5e3a676b3df43abadec852540514,
         type: 3}
       propertyPath: scoreDisplayController
@@ -958,91 +932,16 @@ PrefabInstance:
       propertyPath: PlayerSpawnRoot.Array.data[3]
       value: 
       objectReference: {fileID: 3098214447306124498}
-    - target: {fileID: 4535753497857732213, guid: a12f5e3a676b3df43abadec852540514,
+    - target: {fileID: 4535753497688469118, guid: a12f5e3a676b3df43abadec852540514,
         type: 3}
-      propertyPath: m_Name
-      value: FLIPPER_SPAWN
-      objectReference: {fileID: 0}
-    - target: {fileID: 4535753497857732212, guid: a12f5e3a676b3df43abadec852540514,
+      propertyPath: EndGameCanvas
+      value: 
+      objectReference: {fileID: 474558419}
+    - target: {fileID: 4535753497688469118, guid: a12f5e3a676b3df43abadec852540514,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 27.14
-      objectReference: {fileID: 0}
-    - target: {fileID: 2596253507374391552, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -59.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 2596253507374391552, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -8.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 3092549071496485017, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_Name
-      value: FLIPPER_SPAWN
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245126739440707245, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903263352288253443, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_Name
-      value: GHOST_SPAWN
-      objectReference: {fileID: 0}
-    - target: {fileID: 1722955893212418069, guid: a12f5e3a676b3df43abadec852540514,
-        type: 3}
-      propertyPath: m_Name
-      value: GHOST_SPAWN
-      objectReference: {fileID: 0}
+      propertyPath: PressToJoinCanvas
+      value: 
+      objectReference: {fileID: 617141862}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a12f5e3a676b3df43abadec852540514, type: 3}
 --- !u!1001 &2736100230838002451
@@ -1056,11 +955,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PressToJoin
-      objectReference: {fileID: 0}
-    - target: {fileID: 2736100231429911925, guid: b075f998c15bbcd4e8523ae03339f104,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2736100231429911924, guid: b075f998c15bbcd4e8523ae03339f104,
         type: 3}
@@ -1280,11 +1174,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoundStartCountdownTimer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6759183281991607248, guid: b3e5599fc6dcfca48b8efd12078131f3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6759183281991607215, guid: b3e5599fc6dcfca48b8efd12078131f3,
         type: 3}
