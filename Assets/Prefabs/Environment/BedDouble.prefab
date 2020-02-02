@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4995552943997741659}
   - component: {fileID: 6749455726060176034}
   - component: {fileID: 6163688282369497412}
+  - component: {fileID: 1367467498019298814}
   m_Layer: 0
   m_Name: BedDouble
   m_TagString: Untagged
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1367467498019298814
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669192224714319529}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 618.25464, y: 893.3064, z: 800.00037}
+  m_Center: {x: -300.00003, y: 446.6532, z: 400.00018}
