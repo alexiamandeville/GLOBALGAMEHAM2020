@@ -561,14 +561,6 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 1780492141, guid: 7c0e451ae6c5eea4aad918bbdd3ae6cb, type: 3}
-      propertyPath: m_BoundingSphereOverride.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1780492141, guid: 7c0e451ae6c5eea4aad918bbdd3ae6cb, type: 3}
-      propertyPath: m_BoundingSphereOverride.w
-      value: 1e-45
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c0e451ae6c5eea4aad918bbdd3ae6cb, type: 3}
 --- !u!114 &340764130 stripped

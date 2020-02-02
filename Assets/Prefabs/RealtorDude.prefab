@@ -87,7 +87,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 9.1835e-41, w: 0}
+  m_BoundingSphereOverride: {x: 4, y: 0, z: 1.5, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 3801542032647367983}
   - component: {fileID: 5404124192154986952}
   - component: {fileID: 9050807849870629322}
+  - component: {fileID: 5722445011352524838}
   m_Layer: 0
   m_Name: RealtorDude
   m_TagString: Untagged
@@ -117,9 +118,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6939237112479978503}
-  m_LocalRotation: {x: 0.056271035, y: -0.9417251, z: -0.26400167, w: -0.20072542}
+  m_LocalRotation: {x: 0.056270942, y: -0.94172555, z: -0.26399788, w: -0.20072807}
   m_LocalPosition: {x: 0, y: 0, z: 0.4522876}
-  m_LocalScale: {x: 46.798996, y: 46.798996, z: 46.798996}
+  m_LocalScale: {x: 1.5926231, y: 1.5926231, z: 1.5926231}
   m_Children:
   - {fileID: 4792080161968428289}
   m_Father: {fileID: 0}
@@ -189,6 +190,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5722445011352524838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6939237112479978503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e8142c15de47e8a4d86ece76d9b9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animRoot: {fileID: 4792080161968428289}
+  frequency: 2
+  amplitude: 10
 --- !u!1001 &574867877996969499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -229,17 +245,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 18f0757c9f0d80f4799f5b5ed61c964e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 18f0757c9f0d80f4799f5b5ed61c964e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 18f0757c9f0d80f4799f5b5ed61c964e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 18f0757c9f0d80f4799f5b5ed61c964e,
         type: 3}
@@ -254,7 +270,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 18f0757c9f0d80f4799f5b5ed61c964e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 18f0757c9f0d80f4799f5b5ed61c964e,
         type: 3}
