@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0.392}
+  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0.8901961}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -908,11 +908,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3713694659505719055}
     m_Modifications:
-    - target: {fileID: 6939237112479978503, guid: 49a12e838b088704b9e37fe48f1b2f74,
-        type: 3}
-      propertyPath: m_Name
-      value: RealtorDude
-      objectReference: {fileID: 0}
     - target: {fileID: 1529163822042073462, guid: 49a12e838b088704b9e37fe48f1b2f74,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1018,6 +1013,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6939237112479978503, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: m_Name
+      value: RealtorDude
+      objectReference: {fileID: 0}
     - target: {fileID: 4050200606170897749, guid: 49a12e838b088704b9e37fe48f1b2f74,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1032,11 +1032,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 5722445011352524838, guid: 49a12e838b088704b9e37fe48f1b2f74,
-        type: 3}
-      propertyPath: amplitude
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4050200606170897748, guid: 49a12e838b088704b9e37fe48f1b2f74,
         type: 3}
@@ -1067,6 +1062,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
       value: -0.000009258656
+      objectReference: {fileID: 0}
+    - target: {fileID: 5722445011352524838, guid: 49a12e838b088704b9e37fe48f1b2f74,
+        type: 3}
+      propertyPath: amplitude
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49a12e838b088704b9e37fe48f1b2f74, type: 3}
