@@ -200,12 +200,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6939237112479978503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e8142c15de47e8a4d86ece76d9b9a6, type: 3}
+  m_Script: {fileID: 11500000, guid: e03a696137d040e38721dcda4b12ce6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animRoot: {fileID: 4792080161968428289}
-  frequency: 2
-  amplitude: 10
+  frequency: 5
+  amplitude: 1
 --- !u!1001 &574867877996969499
 PrefabInstance:
   m_ObjectHideFlags: 0
