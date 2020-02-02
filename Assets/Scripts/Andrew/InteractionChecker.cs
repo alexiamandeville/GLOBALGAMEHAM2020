@@ -9,12 +9,15 @@ public class InteractionChecker : MonoBehaviour
     [SerializeField] private float distance = 3.0f;
 
     private PlayerInput playerInput = null;
+    private PlayerController playerController = null;
+
     private Interactable previousInteractable = null;
     private Interactable targetInteractable = null;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -33,7 +36,7 @@ public class InteractionChecker : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward);
 
-        if (Physics.Raycast(ray, out hit, distance, interactionMask))
+        if(Physics.SphereCast(ray, 0.75f, out hit, distance, interactionMask))
         {
             GameObject hitObject = hit.collider.gameObject;
             interactable = hitObject.GetComponent<Interactable>();
@@ -47,10 +50,10 @@ public class InteractionChecker : MonoBehaviour
         if (targetInteractable != previousInteractable)
         {
             if (previousInteractable)
-                previousInteractable.LookAway();
+                previousInteractable.LookAway(playerController);
 
             if (targetInteractable)
-                targetInteractable.LookAt();
+                targetInteractable.LookAt(playerController);
         }
     }
 
@@ -60,12 +63,11 @@ public class InteractionChecker : MonoBehaviour
         {
             if (playerInput.currentGamepad.buttonSouth.wasPressedThisFrame)
             {
-                targetInteractable.Fix();
-            }
+                if(playerController.playerType == PlayerType.FLIPPER)
+                    targetInteractable.Fix(playerController);
 
-            if (playerInput.currentGamepad.buttonNorth.wasPressedThisFrame)
-            {
-                targetInteractable.Break();
+                if (playerController.playerType == PlayerType.GHOST)
+                    targetInteractable.Break(playerController);
             }
         }
     }

@@ -23,18 +23,6 @@ namespace DefaultNamespace
       playerNumber = num;
     }
 
-    public virtual void Start()
-    {
-      if (Gamepad.all.Count == 0)
-      {
-        // TODO do something useful here
-        Debug.LogWarning("NO CONTROLLERS CONNECTED");
-        return;
-      }
-
-      currentGamepad = Gamepad.all[playerNumber];
-    }
-    
     public virtual void FixedUpdate()
     {
       UpdateIsOnGround();
@@ -43,6 +31,8 @@ namespace DefaultNamespace
 
     protected bool IsMovementEnabled()
     {
+      currentGamepad = Gamepad.all[playerNumber];
+      
       if (currentGamepad == null || !currentGamepad.enabled)
       {
         return false;
@@ -109,7 +99,7 @@ namespace DefaultNamespace
 
     private void OnTriggerEnter(Collider other)
     {
-      Debug.Log($"OnTriggerEnter with: {other.gameObject.name}");
+      // Debug.Log($"OnTriggerEnter with: {other.gameObject.name}");
       
       var door = other.gameObject.GetComponentInParent<Door>();
       if (door != null)

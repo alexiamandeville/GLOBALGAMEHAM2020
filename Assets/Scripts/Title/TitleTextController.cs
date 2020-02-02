@@ -10,6 +10,7 @@ namespace Title
   {
     [SerializeField] protected int playerNumber;
     [SerializeField] protected PlayerType playerType;
+    protected FlipperType flipperType = FlipperType.INVALID;
     [SerializeField] protected TextMeshProUGUI text;
     
     [Serializable]
@@ -22,9 +23,10 @@ namespace Title
 
     protected PlayerType lastPlayerType = PlayerType.INVALID;
 
-    public void SetPlayerType(PlayerType type)
+    public void SetPlayerType(PlayerType type, FlipperType ftype)
     {
       playerType = type;
+      flipperType = ftype;
     }
 
     public void SetPlayerNumber(int num)
@@ -62,7 +64,7 @@ namespace Title
 
     void SetPlayerString(string display)
     {
-      text.text = $"{display} player {playerNumber+1}";
+      text.text = $"{display}{(playerType == PlayerType.FLIPPER ? $":{flipperType}" : "")} player {playerNumber+1}";
     }
   }
 }

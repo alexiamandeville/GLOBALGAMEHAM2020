@@ -1,4 +1,4 @@
-using System;
+  using System;
 using Models;
 using Title;
 using UnityEngine;
@@ -7,9 +7,11 @@ namespace DefaultNamespace
 {
   public class PlayerController : MonoBehaviour
   {
-    public PlayerType playerType = PlayerType.INVALID;
-    public int playerNumber = 0;
-    
+    public FlipperType flipperType { get; protected set; } = FlipperType.INVALID;
+    public PlayerType playerType { get; protected set; } = PlayerType.INVALID;
+    protected int playerNumber = 0;
+    protected int controllerId = 0;
+
     [SerializeField] protected PlayerInput inputController;
     [SerializeField] protected TitleTextController titleTextController;
     [SerializeField] protected BaseModelController modelController;
@@ -17,17 +19,17 @@ namespace DefaultNamespace
     [SerializeField] protected GameObject flipperModel;
     [SerializeField] protected GameObject ghostModel;
 
-    void Awake()
+    public void InitPlayer(PlayerType type, FlipperType flipper, int controllerId, int playerId)
     {
-      if (titleTextController == null)
-      {
-        return;
-      }
-      
+      flipperType = flipper;
+      playerType = type;
+      playerNumber = playerId;
+      this.controllerId = controllerId;
+
       titleTextController.SetPlayerNumber(playerNumber);
-      titleTextController.SetPlayerType(playerType);
-      
-      inputController.SetPlayerNumber(playerNumber);
+      titleTextController.SetPlayerType(playerType, flipperType);
+
+      inputController.SetPlayerNumber(this.controllerId);
 
       switch (playerType)
       {
@@ -35,12 +37,12 @@ namespace DefaultNamespace
           flipperModel.SetActive(false);
           ghostModel.SetActive(true);
           break;
-        
+
         case PlayerType.FLIPPER:
           flipperModel.SetActive(true);
           ghostModel.SetActive(false);
           break;
-        
+
         default:
           Debug.LogError($"PLAYER TYPE NOT SET, #{playerNumber}");
           break;
