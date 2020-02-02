@@ -784,6 +784,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactables
       objectReference: {fileID: 0}
+    - target: {fileID: 2788249562213111856, guid: e54b209a47e4f2e44ae4c3e7c9463a60,
+        type: 3}
+      propertyPath: startAsBroken
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2930030035454885842, guid: e54b209a47e4f2e44ae4c3e7c9463a60,
         type: 3}
       propertyPath: m_Mesh
