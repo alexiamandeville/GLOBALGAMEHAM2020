@@ -27,6 +27,9 @@ namespace DefaultNamespace
 
         private ScroungeHotspot currScroungeSpot;
 
+        private const float DOOR_DEBOUNCE_SEC_MAX = 0.2f;
+        private float doorDebounceTimer = 0f;
+
         public void CanTeleport(bool canTeleport)
         {
             this.canTeleport = canTeleport;
@@ -45,6 +48,11 @@ namespace DefaultNamespace
 
         public virtual void Update()
         {
+            if (doorDebounceTimer > 0)
+            {
+                doorDebounceTimer -= Time.deltaTime;
+            }
+            
             if (currentGamepad != null)
             {
                 bool bWasScrounging = IsScrounging;
@@ -151,9 +159,16 @@ namespace DefaultNamespace
                 return;
             }
 
+            if (doorDebounceTimer > 0)
+            {
+                return;
+            }
+
             var door = other.gameObject.GetComponentInParent<Door>();
             if (door != null)
             {
+                doorDebounceTimer = DOOR_DEBOUNCE_SEC_MAX;
+                
                 var newPoint = door.otherDoor.mySpawnPoint;
                 playerRootTransform.position = newPoint.position;
                 Debug.Log($"Teleport via door {other.gameObject.name}");
