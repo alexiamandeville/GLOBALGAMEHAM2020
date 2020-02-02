@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace.RoundStartTimer;
+using DefaultNamespace.RoundTimer;
+using DefaultNamespace.Scoring;
 using Facebook.SocialVR.Worlds.Shapeworld.Scripts.Utils.FSM;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,18 +12,29 @@ namespace DefaultNamespace
 {
   public partial class LeGame : MonoBehaviour
   {
-    public const int MAX_PLAYERS = 4;
+    public const int MAX_PLAYERS = 1; //4;
     
     public Dictionary<int, int> ControllerToPlayerMap = new Dictionary<int, int>();
-    public Dictionary<int, GameObject> PlayerIdToSpawnedEntMap = new Dictionary<int, GameObject>();
+    public Dictionary<int, PlayerController> PlayerIdToSpawnedEntMap = new Dictionary<int, PlayerController>();
 
-    public RoundStartTimerController roundTimerController;
+    public RoundStartTimerController roundStartTimerController;
+    public RoundTimerController roundTimerController;
+    public GameObject roundCanvas;
+
+    protected PointsManager pointManager = new PointsManager();
 
     [Header("Reference to the prefab for a player to spawn")]
     [SerializeField] protected GameObject PlayerPrefabRef;
 
     [Header("Where to spawn all players")]
     [SerializeField] protected Transform[] PlayerSpawnRoot;
+    
+    [SerializeField] protected GameObject EndGameCanvas;
+    [SerializeField] protected GameObject PressToJoinCanvas;
+    
+    const float ROUND_START_TIMER_MAX = 3f;
+    private const float ROUND_TIMER_MAX = 5f;
+    private Interactable[] sceneInteractables;
     
     public enum GameState
     {
@@ -53,7 +66,26 @@ namespace DefaultNamespace
     // -----------------------------------------------------------------------------------------------------------------
     void HardReset()
     {
+      Debug.LogWarning("---HARD RESET---");
+      foreach (var t in PlayerIdToSpawnedEntMap)
+      {
+        Debug.Log($"Destroy {t.Value.gameObject.name}");
+        Destroy(t.Value.gameObject);
+      }
+
+      ControllerToPlayerMap.Clear();
+      PlayerIdToSpawnedEntMap.Clear();
+
+      roundStartTimerController.gameObject.SetActive(false);
+      
       roundTimerController.gameObject.SetActive(false);
+      roundTimerController.Reset();
+      
+      pointManager.ResetPoints();
+
+      EndGameCanvas.SetActive(false);
+      roundCanvas.SetActive(false);
+      PressToJoinCanvas.SetActive(false);
     }
     
     void on__GameState__START__WILL_ENTER(GameState prevState)
@@ -94,7 +126,14 @@ namespace DefaultNamespace
 
       pc.InitPlayer(ptype, ftype, gamepadId, playerId);
 
-      pc.gameObject.name = $"{ptype} ctrl:{gamepadId} pid:{playerId}";
+      pc.gameObject.name = $"{ptype}{(ptype == PlayerType.FLIPPER ? $":{ftype}" : "")} ctrl:{gamepadId} pid:{playerId}";
+
+      PlayerIdToSpawnedEntMap.Add(playerId, pc);
+    }
+    
+    void on__GameState__WAITING_FOR_PLAYERS__WILL_ENTER(GameState prevState)
+    {
+      PressToJoinCanvas.SetActive(true);
     }
     
     IEnumerator on__GameState__WAITING_FOR_PLAYERS__ENTERING(GameState prevState)
@@ -146,25 +185,29 @@ namespace DefaultNamespace
       Debug.LogError("WUT");
     }
     
+    void on__GameState__WAITING_FOR_PLAYERS__WILL_EXIT(GameState prevState)
+    {
+      PressToJoinCanvas.SetActive(false);
+    }
+    
     // ROUND_START_COUNTDOWN
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-
-    const float TIMER_MAX = 10f;
+    
     void on__GameState__ROUND_START_COUNTDOWN__WILL_ENTER(GameState prevState)
     {
-      roundTimerController.SetTimeLeft(TIMER_MAX);
-      roundTimerController.gameObject.SetActive(true);
+      roundStartTimerController.SetTimeLeft(ROUND_START_TIMER_MAX);
+      roundStartTimerController.gameObject.SetActive(true);
     }
     
     IEnumerator on__GameState__ROUND_START_COUNTDOWN__ENTERING(GameState prevState)
     {
-      float timeLeft = TIMER_MAX;
+      float timeLeft = ROUND_START_TIMER_MAX;
       while (timeLeft >= 0)
       {
         timeLeft -= Time.deltaTime;
 
-        roundTimerController.SetTimeLeft(timeLeft);
+        roundStartTimerController.SetTimeLeft(timeLeft);
         
         yield return null;
       }
@@ -172,8 +215,8 @@ namespace DefaultNamespace
     
     void on__GameState__ROUND_START_COUNTDOWN__DID_ENTER(GameState prevState)
     {
-      roundTimerController.gameObject.SetActive(false);
-      roundTimerController.SetTimeLeft(TIMER_MAX);
+      roundStartTimerController.gameObject.SetActive(false);
+      roundStartTimerController.SetTimeLeft(ROUND_START_TIMER_MAX);
 
       fsm.requestStateTransitionTo(GameState.ROUND);
     }
@@ -181,5 +224,77 @@ namespace DefaultNamespace
     // ROUND
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
+
+    void on__GameState__ROUND__WILL_ENTER(GameState prevState)
+    {
+      roundCanvas.SetActive(true);
+      roundTimerController.gameObject.SetActive(true);
+      roundTimerController.Reset();
+
+      sceneInteractables = FindObjectsOfType<Interactable>();
+      foreach (var i in sceneInteractables)
+      {
+        i.OnBroken.AddListener(() =>
+        {
+          Debug.Log($"Item broken: {i.gameObject.name}");
+          pointManager.AddPoint(PlayerType.GHOST);
+        });
+        
+        i.OnFixed.AddListener(() =>
+        {
+          Debug.Log($"Item fixed: {i.gameObject.name}");
+          pointManager.AddPoint(PlayerType.FLIPPER);
+        });
+      }
+    }
+    
+    IEnumerator on__GameState__ROUND__ENTERING(GameState prevState)
+    {
+      float timeLeft = ROUND_TIMER_MAX;
+      while (timeLeft >= 0)
+      {
+        timeLeft -= Time.deltaTime;
+
+        roundTimerController.SetTimeLeft(timeLeft, ROUND_TIMER_MAX);
+        
+        yield return null;
+      }
+    }
+    
+    void on__GameState__ROUND__DID_ENTER(GameState prevState)
+    {
+      roundTimerController.gameObject.SetActive(false);
+      roundCanvas.SetActive(false);
+      
+      fsm.requestStateTransitionTo(GameState.ROUND_END);
+    }
+    
+    // ROUND_END
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
+    void on__GameState__ROUND_END__WILL_ENTER(GameState prevState)
+    {
+      EndGameCanvas.SetActive(true);
+    }
+
+    IEnumerator on__GameState__ROUND_END__ENTERING(GameState prevState)
+    {
+      while (true)
+      {
+        if (Gamepad.current.buttonSouth.wasReleasedThisFrame)
+        {
+          fsm.requestStateTransitionTo(GameState.START);
+          break;
+        }
+        
+        yield return null;
+      }
+    }
+    
+    void on__GameState__ROUND_END__DID_ENTER(GameState prevState)
+    {
+      EndGameCanvas.SetActive(false);
+    }
   }
 }

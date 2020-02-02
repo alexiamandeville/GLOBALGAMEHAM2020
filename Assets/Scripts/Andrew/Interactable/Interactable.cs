@@ -8,25 +8,34 @@ public class Interactable : MonoBehaviour
 {
     public UnityEvent OnFixed = new UnityEvent();
     public UnityEvent OnBroken = new UnityEvent();
+
+    public bool startAsBroken = false;
     public FlipperType flipperRequired = FlipperType.INVALID;
 
-    protected bool isBroken = false;
-
+    private bool isBroken = false;
     private ScoreSystem scoreSystem = null;
-    private SpriteRenderer spriteRenderer = null;
 
-    protected virtual void Awake()
+    [SerializeField] private GameObject breakIndicator = null;
+    [SerializeField] private GameObject fixIndicator = null;
+
+    private void Awake()
     {
         scoreSystem = FindObjectOfType<ScoreSystem>();
         gameObject.layer = LayerMask.NameToLayer("Interaction");
 
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.enabled = false;
+        breakIndicator.SetActive(false);
+        fixIndicator.SetActive(false);
     }
 
-    public virtual void Fix(PlayerController player)
+    private void Start()
     {
-        if(isBroken && player.flipperType == flipperRequired)
+        if (startAsBroken)
+            Break(null);
+    }
+
+    public void Fix(PlayerController player)
+    {
+        if (CanBeFixed(player.flipperType))
         {
             isBroken = false;
             OnFixed.Invoke();
@@ -34,13 +43,13 @@ public class Interactable : MonoBehaviour
             if (scoreSystem)
                 scoreSystem.playerScore += 1.0f;
 
-            Debug.Log(gameObject.name + " - " + "Fixed.");
+            // Debug.Log(gameObject.name + " - " + "Fixed.");
         }
     }
 
-    public virtual void Break(PlayerController player)
+    public void Break(PlayerController player)
     {
-        if(!isBroken)
+        if (CanBeBroken())
         {
             isBroken = true;
             OnBroken.Invoke();
@@ -48,19 +57,45 @@ public class Interactable : MonoBehaviour
             if (scoreSystem)
                 scoreSystem.playerScore -= 1.0f;
 
-            Debug.Log(gameObject.name + " - " + "Broken.");
+            // Debug.Log(gameObject.name + " - " + "Broken.");
         }
     }
 
     public virtual void LookAt(PlayerController player)
     {
-        spriteRenderer.enabled = true;
-        Debug.Log(gameObject.name + " - " + "Looked at.");
+        if (player.playerType == PlayerType.FLIPPER)
+        {
+            if (CanBeFixed(player.flipperType))
+                fixIndicator.SetActive(true);
+        }
+
+        if (player.playerType == PlayerType.GHOST)
+        {
+            if (CanBeBroken())
+                breakIndicator.SetActive(true);
+        }
+
+        // Debug.Log(gameObject.name + " - " + "Looked at.");
     }
 
-    public virtual void LookAway(PlayerController player)
+    public void LookAway(PlayerController player)
     {
-        spriteRenderer.enabled = false;
-        Debug.Log(gameObject.name + " - " + "Looked away.");
+        if (player.playerType == PlayerType.FLIPPER)
+            fixIndicator.SetActive(false);
+
+        if (player.playerType == PlayerType.GHOST)
+            breakIndicator.SetActive(false);
+
+        // Debug.Log(gameObject.name + " - " + "Looked away.");
+    }
+
+    private bool CanBeFixed(FlipperType flipperType)
+    {
+        return flipperType == flipperRequired && isBroken;
+    }
+
+    private bool CanBeBroken()
+    {
+        return !isBroken;
     }
 }

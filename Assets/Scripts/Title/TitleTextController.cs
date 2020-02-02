@@ -64,7 +64,7 @@ namespace Title
 
     void SetPlayerString(string display)
     {
-      text.text = $"{display}{(playerType == PlayerType.FLIPPER ? $":{flipperType}" : "")} player {playerNumber+1}";
+      text.text = $"Player #{playerNumber+1}";
     }
   }
 }
