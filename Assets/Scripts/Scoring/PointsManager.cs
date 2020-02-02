@@ -20,6 +20,40 @@ namespace DefaultNamespace.Scoring
       }
 
       PlayerTypeToPoints[type]++;
+      
+      Debug.Log($"SCORE[{type}] => {PlayerTypeToPoints[type]}");
+    }
+
+    public float GetScorePct(PlayerType type)
+    {
+      if (!PlayerTypeToPoints.ContainsKey(type))
+      {
+        return 0;
+      }
+      
+      int totalScore = 0;
+      foreach (var pt in PlayerTypeToPoints)
+      {
+        totalScore += pt.Value;
+      }
+
+      return (float) PlayerTypeToPoints[type] / (float) totalScore * 100;
+    }
+
+    public PlayerType GetWinner()
+    {
+      PlayerType t = PlayerType.INVALID;
+      int maxVal = 0;
+      foreach (var kv in PlayerTypeToPoints)
+      {
+        if (kv.Value > maxVal)
+        {
+          maxVal = kv.Value;
+          t = kv.Key;
+        }
+      }
+
+      return t;
     }
   }
 }

@@ -19,6 +19,7 @@ namespace DefaultNamespace
     public RoundStartTimerController roundStartTimerController;
     public RoundTimerController roundTimerController;
     public GameObject roundCanvas;
+    public ScoreDisplayController scoreDisplayController;
 
     protected PointsManager pointManager = new PointsManager();
 
@@ -32,7 +33,7 @@ namespace DefaultNamespace
     [SerializeField] protected GameObject PressToJoinCanvas;
     
     const float ROUND_START_TIMER_MAX = 3f;
-    private const float ROUND_TIMER_MAX = 5f;
+    private const float ROUND_TIMER_MAX = 10f;
     private Interactable[] sceneInteractables;
     
     public enum GameState
@@ -272,6 +273,11 @@ namespace DefaultNamespace
     void on__GameState__ROUND_END__WILL_ENTER(GameState prevState)
     {
       EndGameCanvas.SetActive(true);
+
+      var flipScore = pointManager.GetScorePct(PlayerType.FLIPPER);
+      var ghostScore = pointManager.GetScorePct(PlayerType.GHOST);
+      
+      scoreDisplayController.SetScore(flipScore, ghostScore);
     }
 
     IEnumerator on__GameState__ROUND_END__ENTERING(GameState prevState)
@@ -291,6 +297,7 @@ namespace DefaultNamespace
     void on__GameState__ROUND_END__DID_ENTER(GameState prevState)
     {
       EndGameCanvas.SetActive(false);
+      scoreDisplayController.SetScore(0, 0);
     }
   }
 }
