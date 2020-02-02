@@ -45,6 +45,9 @@
           <e p="RoundTimer" t="Include">
             <e p="RoundTimerController.cs" t="Include" />
           </e>
+          <e p="Scoring" t="Include">
+            <e p="PointsManager.cs" t="Include" />
+          </e>
           <e p="Title" t="Include">
             <e p="TitleTextController.cs" t="Include" />
           </e>

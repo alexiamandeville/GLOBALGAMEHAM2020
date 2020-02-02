@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace.RoundStartTimer;
 using DefaultNamespace.RoundTimer;
+using DefaultNamespace.Scoring;
 using Facebook.SocialVR.Worlds.Shapeworld.Scripts.Utils.FSM;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +18,8 @@ namespace DefaultNamespace
 
     public RoundStartTimerController roundStartTimerController;
     public RoundTimerController roundTimerController;
+
+    protected PointsManager pointManager;
 
     [Header("Reference to the prefab for a player to spawn")]
     [SerializeField] protected GameObject PlayerPrefabRef;
@@ -54,6 +57,8 @@ namespace DefaultNamespace
       roundStartTimerController.gameObject.SetActive(false);
       roundTimerController.gameObject.SetActive(false);
       roundTimerController.Reset();
+      
+      pointManager.ResetPoints();
     }
     
     void on__GameState__START__WILL_ENTER(GameState prevState)
@@ -182,11 +187,29 @@ namespace DefaultNamespace
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     private const float ROUND_TIMER_MAX = 20f;
+
+    private Interactable[] sceneInteractables;
     
     void on__GameState__ROUND__WILL_ENTER(GameState prevState)
     {
       roundTimerController.gameObject.SetActive(true);
       roundTimerController.Reset();
+
+      sceneInteractables = FindObjectsOfType<Interactable>();
+      foreach (var i in sceneInteractables)
+      {
+        i.OnBroken.AddListener(() =>
+        {
+          Debug.Log($"Item broken: {i.gameObject.name}");
+          pointManager.AddPoint(PlayerType.GHOST);
+        });
+        
+        i.OnFixed.AddListener(() =>
+        {
+          Debug.Log($"Item fixed: {i.gameObject.name}");
+          pointManager.AddPoint(PlayerType.FLIPPER);
+        });
+      }
     }
     
     IEnumerator on__GameState__ROUND__ENTERING(GameState prevState)
