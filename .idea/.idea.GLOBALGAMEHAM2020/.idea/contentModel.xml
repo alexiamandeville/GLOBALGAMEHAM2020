@@ -62,6 +62,7 @@
           <e p="Title" t="Include">
             <e p="TitleTextController.cs" t="Include" />
           </e>
+          <e p="TMPTextWriter.cs" t="Include" />
           <e p="UITextTypeWriter.cs" t="Include" />
           <e p="Utils" t="Include">
             <e p="FSM" t="Include">
