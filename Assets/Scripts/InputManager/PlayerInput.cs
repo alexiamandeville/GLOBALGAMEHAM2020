@@ -18,7 +18,6 @@ namespace DefaultNamespace
         [SerializeField] protected float scroungeDistVibrateSpeed = 0.5f;
         [SerializeField] protected SphereCollider groundCollider;
         [SerializeField] protected CapsuleCollider playerCollider;
-        [SerializeField] protected float doorCooldownSeconds = 0.2f;
 
         public Gamepad currentGamepad;
         protected bool IsCurrentlyOnGround;
@@ -27,8 +26,6 @@ namespace DefaultNamespace
         protected bool canTeleport;
 
         private ScroungeHotspot currScroungeSpot;
-
-        protected float doorCooldown = 0;
 
         public void CanTeleport(bool canTeleport)
         {
@@ -48,11 +45,6 @@ namespace DefaultNamespace
 
         public virtual void Update()
         {
-            if (doorCooldown > 0)
-            {
-                doorCooldown -= Time.deltaTime;
-            }
-            
             if (currentGamepad != null)
             {
                 bool bWasScrounging = IsScrounging;
@@ -154,7 +146,7 @@ namespace DefaultNamespace
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!canTeleport || doorCooldown > 0)
+            if (!canTeleport)
             {
                 return;
             }
@@ -164,7 +156,6 @@ namespace DefaultNamespace
             {
                 var newPoint = door.otherDoor.mySpawnPoint;
                 playerRootTransform.position = newPoint.position;
-                doorCooldown = doorCooldownSeconds;
                 Debug.Log($"Teleport via door {other.gameObject.name}");
             }
 

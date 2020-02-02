@@ -44,7 +44,6 @@
             <e p="PlayerController.cs" t="Include" />
             <e p="PlayerType.cs" t="Include" />
           </e>
-          <e p="RealtorHeadAnimator.cs" t="Include" />
           <e p="RoundStartTimer" t="Include">
             <e p="RoundStartTimerController.cs" t="Include" />
           </e>
@@ -62,7 +61,6 @@
           <e p="Title" t="Include">
             <e p="TitleTextController.cs" t="Include" />
           </e>
-          <e p="TMPTextWriter.cs" t="Include" />
           <e p="UITextTypeWriter.cs" t="Include" />
           <e p="Utils" t="Include">
             <e p="FSM" t="Include">
