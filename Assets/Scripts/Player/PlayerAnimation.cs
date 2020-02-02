@@ -5,13 +5,14 @@ using DefaultNamespace;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    public Rigidbody movementRigidBodyRoot;
+    public float animMoveSpeedMulti = 0.1f;
+    
     private Animator animator = null;
-    private PlayerInput playerInput = null;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        playerInput = GetComponentInParent<PlayerInput>();
     }
 
     private void Update()
@@ -21,10 +22,10 @@ public class PlayerAnimation : MonoBehaviour
 
     private void WalkAnimation()
     {
-        Vector2 moveAxis = playerInput.currentGamepad.leftStick.ReadValue();
-        bool isWalking = moveAxis == Vector2.zero ? false : true;
+        var moveAxis = movementRigidBodyRoot.velocity;
+        var isWalking = moveAxis.magnitude > 0;
 
-        animator.speed = moveAxis.magnitude;
+        animator.speed = moveAxis.magnitude * animMoveSpeedMulti;
         animator.SetBool("Walk", isWalking);
     }
 }
